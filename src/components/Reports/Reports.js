@@ -4,7 +4,7 @@ import { CSVLink } from "react-csv";
 const Reports = () => {
   const [report, setReport] = useState([]);
   useEffect(() => {
-    fetch("http://192.168.1.11:5009/reports")
+    fetch("http://192.168.10.11:5003/reports")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

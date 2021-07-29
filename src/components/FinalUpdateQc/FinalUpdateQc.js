@@ -54,7 +54,7 @@ const FinalUpdateQc = ({ ansData, qcBy }) => {
     data.qcChecked = qcBy;
     data.remarks = remarks;
     console.log(data);
-    fetch(`http://192.168.1.11:5009/finalUpdate/${id}`, {
+    fetch(`http://192.168.10.11:5003/finalUpdate/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -63,7 +63,7 @@ const FinalUpdateQc = ({ ansData, qcBy }) => {
       .then((output) => {
         setStatus(output);
       });
-    fetch("http://192.168.1.11:5009/reportsData", {
+    fetch("http://192.168.10.11:5003/reportsData", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(finalData),

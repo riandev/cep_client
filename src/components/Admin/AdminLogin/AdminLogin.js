@@ -20,7 +20,7 @@ const AdminLogin = () => {
   console.log(email);
 
   useEffect(() => {
-    fetch("http://192.168.1.11:5009/admin?email=" + email)
+    fetch("http://192.168.10.11:5003/admin?email=" + email)
       .then((res) => res.json())
       .then((data) => setMatchedAdmin(data))
       .catch((err) => console.log(err));
@@ -44,7 +44,7 @@ const AdminLogin = () => {
   };
   return (
     <div>
-      <div className="login-page container">
+      <div className="login-page">
         <div className="row align-items-center" style={{ height: "100vh" }}>
           <div className="col-md-6 shadow p-5">
             <div className="form-group">
