@@ -1,7 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const DeleteLeads = () => {
   const [dStatus, setDstatus] = useState(false);
+  const [dates, setDates] = useState([]);
+  const [ddStatus, setDDStatus] = useState(false);
+  useEffect(() => {
+    fetch("http://192.168.10.11:5003/reportDates")
+      .then((res) => res.json())
+      .then((data) => setDates(data));
+  }, []);
+  function handleDateDelete(ddate) {
+    console.log(ddate);
+    fetch("http://192.168.10.11:5003/deleteByDate?date=" + ddate, {
+      method: "DELETE",
+      headers: { "Content-type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((data) => setDDStatus(data));
+    window.location.reload(true);
+  }
   const handleDelete = () => {
     fetch("http://192.168.10.11:5003/deleteAll", {
       method: "DELETE",
@@ -12,7 +29,34 @@ const DeleteLeads = () => {
   };
   return (
     <div>
-      <div className="mt-5 text-center">
+      <div>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Date</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {dates.map((date, index) => (
+              <tr>
+                <th>{index + 1}</th>
+                <td>{date?.date}</td>
+                <td>
+                  <button
+                    onClick={() => handleDateDelete(date?.date)}
+                    className="btn btn-danger"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="mt-5">
         <p className="text-secondary" style={{ color: "red" }}>
           Press here to Delete All Leads
         </p>

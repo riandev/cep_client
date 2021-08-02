@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
+import { Alert, Col } from "react-bootstrap";
 
 const Reports = () => {
   const [report, setReport] = useState([]);
+  const [dates, setDates] = useState([]);
+  const [downloaded, setDownloaded] = useState([]);
   useEffect(() => {
     fetch("http://192.168.10.11:5003/reports")
       .then((res) => res.json())
@@ -11,6 +14,23 @@ const Reports = () => {
         setReport(data);
       });
   }, []);
+  useEffect(() => {
+    fetch("http://192.168.10.11:5003/reportDates")
+      .then((res) => res.json())
+      .then((data) => setDates(data));
+  }, []);
+
+  function handlePrepare(pdate) {
+    console.log(pdate);
+    fetch("http://192.168.10.11:5003/prepareByDate?date=" + pdate)
+      .then((res) => res.json())
+      .then((data) => setDownloaded(data));
+  }
+
+  function setShow() {
+    setDownloaded([]);
+  }
+
   let headers = [
     { label: "ID", key: "ID" },
     { label: "DIID", key: "DIID" },
@@ -53,12 +73,62 @@ const Reports = () => {
     { label: "remarks", key: "remarks" },
   ];
   return (
-    <div className="text-center mt-5">
+    <div className="mt-5">
+      {downloaded.length > 0 && (
+        <Alert onClose={() => setShow()} dismissible variant="success">
+          Leads Prepared for Download
+        </Alert>
+      )}
       <div>
-        <h4 className="text-secondary">Download Report</h4>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Date</th>
+              <th>Prepare</th>
+              <th>Download</th>
+            </tr>
+          </thead>
+          <tbody>
+            {dates.map((date, index) => (
+              <tr>
+                <th>{index + 1}</th>
+                <td>{date?.date}</td>
+                <td>
+                  <button
+                    onClick={() => handlePrepare(date?.date)}
+                    className="btn btn-danger"
+                  >
+                    Prepare
+                  </button>
+                </td>
+                <td>
+                  <button
+                    className="btn btn-info"
+                    // style={{
+                    //   display: downloaded.length > 0 ? "block" : "none",
+                    // }}
+                  >
+                    <CSVLink
+                      headers={headers}
+                      title="Export data to CSV"
+                      filename={`AKTCL_CEP_${date?.date}.csv`}
+                      data={downloaded}
+                    >
+                      `Download_${date?.date}`
+                    </CSVLink>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="mt-5">
+        <h4 className="text-secondary">Download Full Report Report</h4>
       </div>
       <div style={{ display: report.length > 0 ? "block" : "none" }}>
-        <button className="btn btn-danger">
+        <button className="btn btn-danger mt-3">
           <CSVLink
             headers={headers}
             title="Export data to CSV"
