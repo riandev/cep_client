@@ -43,6 +43,9 @@ function App() {
             <Route exact path="/admin/delete">
               <AdminDashboard></AdminDashboard>
             </Route>
+            <Route exact path="/admin/addLead">
+              <AdminDashboard></AdminDashboard>
+            </Route>
             <Route exact path="/login">
               <Login></Login>
             </Route>
