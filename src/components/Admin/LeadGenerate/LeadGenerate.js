@@ -7,9 +7,29 @@ const LeadGenerate = () => {
   const [regenerate, setRegenerate] = useState([]);
   const [initialUpdateStatus, setInitialUpdateStatus] = useState(false);
   const [regenerateUpdateStatus, setRegenerateUpdateStatus] = useState(false);
+  const [initialDate, setInitialDate] = useState("");
+  const [regenDate, setRegenDate] = useState("");
+
+  const manageInitialDate = (e) => {
+    const d = new Date(e.target.value);
+    let dt = d.getDate();
+    let mn = d.getMonth();
+    mn++;
+    let yy = d.getFullYear();
+    setInitialDate(dt + "/" + mn + "/" + yy);
+  };
+
+  const manageRegenDate = (e) => {
+    const d = new Date(e.target.value);
+    let dt = d.getDate();
+    let mn = d.getMonth();
+    mn++;
+    let yy = d.getFullYear();
+    setRegenDate(dt + "/" + mn + "/" + yy);
+  };
 
   const generateInitial = () => {
-    fetch("http://192.168.10.11:5003/initialLead")
+    fetch("http://192.168.10.11:5003/initialLead?initDate=" + initialDate)
       .then((res) => res.json())
       .then((data) => {
         setInitialLeads(
@@ -43,7 +63,7 @@ const LeadGenerate = () => {
   };
 
   const regenerateLeads = () => {
-    fetch("http://192.168.10.11:5003/regenerate")
+    fetch("http://192.168.10.11:5003/regenerate?regenDate=" + regenDate)
       .then((res) => res.json())
       .then((data) => {
         setRegenerate(
@@ -77,6 +97,14 @@ const LeadGenerate = () => {
           <Card style={{ width: "22rem" }}>
             <Card.Body>
               <h5 className="mt-3">Generate Initial Leads</h5>
+              <input
+                onChange={manageInitialDate}
+                className="form-control"
+                placeholder="dd/mm/yyyy"
+                name="date"
+                type="date"
+                required
+              />
               <div className="mt-3 d-flex justify-content-between">
                 <button onClick={generateInitial} className="btn btn-primary">
                   Generate
@@ -118,6 +146,14 @@ const LeadGenerate = () => {
           <Card style={{ width: "28rem" }}>
             <Card.Body>
               <h5 className="mt-3">Regenerate Leads</h5>
+              <input
+                onChange={manageRegenDate}
+                className="form-control"
+                placeholder="dd/mm/yyyy"
+                name="date"
+                type="date"
+                required
+              />
               <div className="mt-3 d-flex justify-content-between">
                 <button onClick={regenerateLeads} className="btn btn-primary">
                   Regenerate
