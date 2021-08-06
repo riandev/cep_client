@@ -53,6 +53,8 @@ const FinalUpdateQc = ({ ansData, qcBy }) => {
   const onSubmit = (data) => {
     data.qcChecked = qcBy;
     data.remarks = remarks;
+    data.qcDate = new Date().toLocaleDateString();
+    data.qcTime = new Date().toLocaleTimeString();
     console.log(data);
     fetch(`http://192.168.10.11:5003/finalUpdate/${id}`, {
       method: "PATCH",

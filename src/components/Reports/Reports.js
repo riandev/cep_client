@@ -58,7 +58,11 @@ const Reports = () => {
     { label: "for_d", key: "for_d" },
     { label: "agentID", key: "agentID" },
     { label: "qcBy", key: "qcChecked" },
+    { label: "qcDate", key: "qcDate" },
+    { label: "qcTime", key: "qcTime" },
     { label: "rating", key: "rating" },
+    { label: "callDate", key: "callDate" },
+    { label: "callTime", key: "callTime" },
     { label: "q1", key: "answer1" },
     { label: "q2", key: "answer2" },
     { label: "q3", key: "answer3" },
@@ -70,7 +74,6 @@ const Reports = () => {
     { label: "q9", key: "answer9" },
     { label: "q10", key: "answer10" },
     { label: "q11", key: "answer11" },
-    { label: "remarks", key: "remarks" },
   ];
   return (
     <div className="mt-5">

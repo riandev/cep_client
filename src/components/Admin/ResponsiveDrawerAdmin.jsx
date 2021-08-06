@@ -91,10 +91,20 @@ const ResponsiveDrawerAdmin = (props) => {
     window.location.reload(false);
   };
 
+  const handleLogoReload = () => {
+    window.location.reload(true);
+  };
+
   const drawer = (
     <div>
       <div className={classes.toolbar} />
-      <img src={logo} alt="Logo" />
+      <img
+        style={{ cursor: "pointer" }}
+        onClick={handleLogoReload}
+        className="img-fluid"
+        src={logo}
+        alt="Logo"
+      />
       <Divider />
       <List>
         {routesadmin.map((route) => (

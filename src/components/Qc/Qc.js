@@ -42,13 +42,30 @@ const Qc = () => {
           Search
         </button>
       </div>
-      <p className="mt-3">
-        Call Taken By: <b> {matchedQC?.agentID}</b>
-      </p>
-      <p className="mt-3">
-        Last QC By: <b> {matchedQC?.qcChecked}</b>
-      </p>
-      <p className="mt-3">
+      <h5 className="text-secondary mt-3">Permeters</h5>
+      <div className="d-flex justify-content-evenly">
+        <p className="mt-3 card bg-primary text-white m-2 p-2">
+          Call Taken By: <b> {matchedQC?.agentID}</b>
+        </p>
+        <p className="mt-3 card bg-warning text-white m-2 p-2">
+          Call Date: <b> {matchedQC?.callDate}</b>
+        </p>
+        <p className="mt-3 card bg-success text-white m-2 p-2">
+          Call Time: <b> {matchedQC?.callTime}</b>
+        </p>
+      </div>
+      <div className="d-flex justify-content-evenly">
+        <p className="mt-3 card bg-primary text-white m-2 p-2">
+          Last QC By: <b> {matchedQC?.qcChecked}</b>
+        </p>
+        <p className="mt-3 card bg-success text-white m-2 p-2">
+          Last QC By: <b> {matchedQC?.qcDate}</b>
+        </p>
+        <p className="mt-3 card bg-warning text-white m-2 p-2">
+          Last QC By: <b> {matchedQC?.qcTime}</b>
+        </p>
+      </div>
+      <p className="mt-3 card bg-info text-white w-25 p-2">
         Rating: <b> {matchedQC?.rating}</b>
       </p>
       <div>

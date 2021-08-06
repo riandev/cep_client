@@ -82,6 +82,8 @@ const SurveyBody = () => {
       ans10: q10,
       ans11: q11,
       agentID: agent,
+      callDate: new Date().toLocaleDateString(),
+      callTime: new Date().toLocaleTimeString(),
     };
     fetch(`http://192.168.10.11:5003/answers/${consumer?._id}`, {
       method: "PATCH",
